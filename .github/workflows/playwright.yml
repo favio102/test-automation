@@ -27,10 +27,15 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Delete existing Playwright Report (optional)
+      - name: Check for existing Playwright Report Artifact
+        run: |
+          github.actions.getArtifactMetadata artifact_name=playwright-report || exit 1
+
+      - name: Delete existing Playwright Report
         uses: actions/delete-artifact@v4
+        if: failure() || steps.check-artifact.outputs == ''
         with:
-          name: playwright-report  # Artifact name to delete
+          name: playwright-report
 
       - name: Run Playwright tests
         run: npx playwright test
