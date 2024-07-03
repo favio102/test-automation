@@ -27,17 +27,6 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Check for existing Playwright Report Artifact
-        run: |
-          github.actions.getArtifactMetadata artifact_name=playwright-report || exit 1
-
-      - name: Delete existing Playwright Report
-        uses: geekyeggo/delete-artifact@v5
-
-        if: failure() || steps.check-artifact.outputs == ''
-        with:
-          name: playwright-report
-
       - name: Run Playwright tests
         run: npx playwright test
         env:
@@ -68,3 +57,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: playwright-report
           branch: gh-pages
+
+      - name: Delete existing Playwright Report
+        uses: geekyeggo/delete-artifact@v5
+
+        if: failure() || steps.check-artifact.outputs == ''
+        with:
+          name: playwright-report
