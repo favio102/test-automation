@@ -9,12 +9,8 @@ class SearchPage {
   }
 
   async getResultCount() {
-    try {
-      const resultElements = await this.page.locator("figure");
-      return await resultElements.count();
-    } catch (error) {
-      throw new Error("Failed to count search results");
-    }
+    const resultElements = await this.page.locator("figure");
+    return await resultElements.count();
   }
 }
 

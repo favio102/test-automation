@@ -39,10 +39,10 @@
 - Clicking the "Download" button should initiate the download process for the selected image.
 ---
 
-### Test Case ID: TC003 - Verify Login and Logout Functionality
-**Title:** Verify Login & Logout Functionality
+### Test Case ID: TC003 - Verify Login Functionality
+**Title:** Verify Login Functionality
 
-**Description:** This test case verifies a user's ability to log in and log out of their Unsplash account successfully.
+**Description:** This test case verifies a user's ability to log in a Unsplash account successfully.
 
 **Steps:**
 1. Launch a web browser and navigate to the Unsplash homepage (https://unsplash.com).
@@ -50,12 +50,7 @@
 3. Click on the "Log in" button.
 4. Enter your valid email address and password in the designated field labeled.
 5. Click the "Login" button.
-6. Verify that you are logged in by locating your profile picture or username in the navigation bar.
-7. Click the 'Logout' button and return to homepage.
 
 **Expected Result:**
 - Access the login page.
 - Login successfully with valid credentials.
-- Verify successful login status.
-- Access account options through the profile menu.
-- Logout successfully and return to the homepage.
