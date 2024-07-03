@@ -27,6 +27,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Delete existing Playwright Report (optional)
+        uses: actions/delete-artifact@v4
+        with:
+          name: playwright-report  # Artifact name to delete
+
       - name: Run Playwright tests
         run: npx playwright test
         env:
@@ -46,6 +51,7 @@ jobs:
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
+        if: always()
         with:
           path: playwright-report/
 
