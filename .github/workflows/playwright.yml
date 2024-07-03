@@ -32,7 +32,8 @@ jobs:
           github.actions.getArtifactMetadata artifact_name=playwright-report || exit 1
 
       - name: Delete existing Playwright Report
-        uses: actions/delete-artifact@v4
+        uses: geekyeggo/delete-artifact@v5
+
         if: failure() || steps.check-artifact.outputs == ''
         with:
           name: playwright-report
