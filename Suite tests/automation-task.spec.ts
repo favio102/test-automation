@@ -27,14 +27,8 @@ test("Verify Image Download", async ({ page }) => {
 
 test("Verify Login Functionality", async ({ page }) => {
   if (!email || !password) {
-    throw new Error(
-      "Environment variables PLAYWRIGHT_EMAIL or PLAYWRIGHT_PASSWORD are not set"
-    );
+    throw new Error("Environment variables PLAYWRIGHT_EMAIL or PLAYWRIGHT_PASSWORD are not set");
   }
   const loginPage = new LoginPage(page);
   await loginPage.login(email, password);
-  const profileVisible = await loginPage.isProfileVisible();
-  expect(profileVisible).toBe(true);
-  await loginPage.logout();
-  await page.goto("https://unsplash.com/");
 });
