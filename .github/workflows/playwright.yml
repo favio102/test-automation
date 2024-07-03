@@ -1,9 +1,11 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 jobs:
   test:
     timeout-minutes: 60
@@ -30,7 +32,8 @@ jobs:
           PLAYWRIGHT_EMAIL: ${{ secrets.PLAYWRIGHT_EMAIL }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Playwright Report Artifact
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
@@ -40,7 +43,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: playwright-report/
