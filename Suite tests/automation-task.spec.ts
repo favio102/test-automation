@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import SearchPage from "./searchPage.js";
+import LoginPage from "./loginPage.js";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -30,14 +31,10 @@ test("Verify Login Functionality", async ({ page }) => {
       "Environment variables PLAYWRIGHT_EMAIL or PLAYWRIGHT_PASSWORD are not set"
     );
   }
-  await page.goto("https://unsplash.com/");
-  await page.getByRole("link", { name: "Log in" }).click();
-  await page.getByLabel("Email").fill(email);
-  await page.getByLabel("Password").fill(password);
-  await page.getByRole("button", { name: "Login", exact: true }).click();
-  await page.getByRole("button", { name: "Your personal menu button" }).click();
-  await page.getByRole("link", { name: "View profile" }).click();
-  await page.getByRole("button", { name: "Your personal menu button" }).click();
-  await page.getByRole("menuitem", { name: "Logout @automation123" }).click();
+  const loginPage = new LoginPage(page);
+  await loginPage.login(email, password);
+  const profileVisible = await loginPage.isProfileVisible();
+  expect(profileVisible).toBe(true);
+  await loginPage.logout();
   await page.goto("https://unsplash.com/");
 });
