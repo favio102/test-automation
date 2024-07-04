@@ -58,9 +58,9 @@ jobs:
           source: playwright-report
           branch: gh-pages
 
-      - name: Delete existing Playwright Report
+      - name: Delete existing Playwright Report Artifact
+        if: always()
         uses: geekyeggo/delete-artifact@v5
-
-        if: failure() || steps.check-artifact.outputs == ''
         with:
           name: playwright-report
+          run_id: ${{ github.run_id }}
