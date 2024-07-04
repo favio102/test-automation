@@ -46,6 +46,7 @@ jobs:
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
+        if: always()
         with:
           path: playwright-report/
 
@@ -56,3 +57,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: playwright-report
           branch: gh-pages
+
+      - name: Delete existing Playwright Report Artifact
+        if: always()
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: playwright-report
+          run_id: ${{ github.run_id }}
