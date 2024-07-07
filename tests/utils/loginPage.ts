@@ -9,28 +9,10 @@ export default class LoginPage {
 
   async login(email: string, password: string): Promise<void> {
     try {
-      await this.page.goto("https://unsplash.com/");
-      console.log("Navigated to Unsplash homepage");
-
-      await this.page.getByRole("link", { name: "Log in" }).click();
-      console.log("Clicked on login link");
-
-      await this.page.getByLabel("Email").fill(email);
-      console.log("Filled email input");
-
-      await this.page
-        .getByLabel("PasswordForgot your password?")
-        .fill(password);
-      console.log("Filled password input");
-
-      await this.page
-        .getByRole("button", { name: "Login", exact: true })
-        .click();
-      console.log("Clicked on login submit button");
-
-      // Wait for the error message indicating invalid credentials
-      await this.page.waitForSelector('text="Invalid email or password."');
-      console.log("Login attempt with invalid credentials confirmed.");
+      await this.navigateToLoginPage();
+      await this.fillLoginForm(email, password);
+      await this.submitLoginForm();
+      await this.waitForLoginError();
     } catch (error) {
       console.error("Error during login", error);
       if (!this.page.isClosed()) {
@@ -43,5 +25,29 @@ export default class LoginPage {
       }
       throw error;
     }
+  }
+
+  private async navigateToLoginPage(): Promise<void> {
+    await this.page.goto("https://unsplash.com/");
+    console.log("Navigated to Unsplash homepage");
+    await this.page.getByRole("link", { name: "Log in" }).click();
+    console.log("Clicked on login link");
+  }
+
+  private async fillLoginForm(email: string, password: string): Promise<void> {
+    await this.page.getByLabel("Email").fill(email);
+    console.log("Filled email input");
+    await this.page.getByLabel("PasswordForgot your password?").fill(password);
+    console.log("Filled password input");
+  }
+
+  private async submitLoginForm(): Promise<void> {
+    await this.page.getByRole("button", { name: "Login", exact: true }).click();
+    console.log("Clicked on login submit button");
+  }
+
+  private async waitForLoginError(): Promise<void> {
+    await this.page.waitForSelector('text="Invalid email or password."');
+    console.log("Login attempt with invalid credentials confirmed.");
   }
 }
