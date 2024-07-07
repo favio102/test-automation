@@ -9,11 +9,9 @@ export default class SearchPage {
 
   async searchFor(searchTerm: string): Promise<void> {
     try {
-      await this.page.fill('input[type="search"]', searchTerm);
-      console.log(`Filled search input with term: '${searchTerm}'`);
-
-      await this.page.press('input[type="search"]', "Enter");
-      console.log("Pressed Enter key");
+      await this.navigateToHomepage();
+      await this.performSearch(searchTerm);
+      await this.pressEnterKey();
     } catch (error) {
       console.error("Error during search", error);
       console.log("Page URL at failure: ", this.page.url());
@@ -38,5 +36,20 @@ export default class SearchPage {
       });
       throw error;
     }
+  }
+
+  private async navigateToHomepage(): Promise<void> {
+    await this.page.goto("https://unsplash.com");
+    console.log("Navigated to Unsplash homepage");
+  }
+
+  private async performSearch(searchTerm: string): Promise<void> {
+    await this.page.fill('input[type="search"]', searchTerm);
+    console.log(`Filled search input with term: '${searchTerm}'`);
+  }
+
+  private async pressEnterKey(): Promise<void> {
+    await this.page.press('input[type="search"]', "Enter");
+    console.log("Pressed Enter key");
   }
 }
