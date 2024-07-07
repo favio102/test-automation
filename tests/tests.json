@@ -1,0 +1,8 @@
+{
+  "downloadTerms": ["city", "technology", "food"],
+  "searchTerms": ["nature", "city", "animals"],
+  "invalidCredentials": {
+    "email": "invalid@example.com",
+    "password": "invalidpassword"
+  }
+}

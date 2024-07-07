@@ -1,14 +1,12 @@
 import { test, expect } from "@playwright/test";
 import SearchPage from "./utils/searchPage.js";
 import * as dotenv from "dotenv";
+import testData from './tests.json';
 
 dotenv.config();
 
-// Test data for download functionality
-const downloadTerms = ["city", "technology", "food"];
-
 // Parameterized test for image download functionality
-downloadTerms.forEach((searchTerm) => {
+testData.downloadTerms.forEach((searchTerm: string) => {
   test(`Verify Image Download - ${searchTerm}`, async ({ page }) => {
     const searchPage = new SearchPage(page);
     try {
@@ -26,7 +24,10 @@ downloadTerms.forEach((searchTerm) => {
 
       expect(downloadLink).not.toBeNull();
     } catch (error) {
-      console.error(`Error during 'Verify Image Download' test for ${searchTerm}`, error);
+      console.error(
+        `Error during 'Verify Image Download' test for ${searchTerm}`,
+        error
+      );
       console.log("Page URL at failure: ", page.url());
       await page.screenshot({
         path: `screenshots/verify-image-download-${searchTerm}-failure.png`,
