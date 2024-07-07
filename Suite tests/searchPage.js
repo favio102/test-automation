@@ -4,13 +4,28 @@ class SearchPage {
   }
 
   async searchFor(searchTerm) {
-    await this.page.fill('input[type="search"]', searchTerm);
-    await this.page.press('input[type="search"]', "Enter");
+    try {
+      await this.page.fill('input[type="search"]', searchTerm);
+      console.log(`Filled in search term: ${searchTerm}`);
+
+      await this.page.press('input[type="search"]', "Enter");
+      console.log("Pressed Enter to search");
+    } catch (error) {
+      console.error("Error during search", error);
+      throw error;
+    }
   }
 
   async getResultCount() {
-    const resultElements = await this.page.locator("figure");
-    return await resultElements.count();
+    try {
+      const resultElements = await this.page.locator("figure");
+      const count = await resultElements.count();
+      console.log(`Found ${count} result elements`);
+      return count;
+    } catch (error) {
+      console.error("Error getting result count", error);
+      throw error;
+    }
   }
 }
 
