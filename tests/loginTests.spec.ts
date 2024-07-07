@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
-import LoginPage from './utils/loginPage.ts'
+import LoginPage from "./utils/loginPage.ts";
+import testData from './tests.json';
 
 test.describe("Login Tests", () => {
   test("Verify Login Functionality - invalid@example.com", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Using invalid credentials
-    const email = "invalid@example.com";
-    const password = "invalidpassword";
+    const { email, password } = testData.invalidCredentials;
 
     try {
       await loginPage.login(email, password);
