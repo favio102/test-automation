@@ -19,7 +19,24 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
+
+      # List cache directory before restoring cache
+      - name: List cache directory before restoring
+        run: ls -la ~/.npm || echo "Directory does not exist"
+
+      # Cache Node.js modules
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # List cache directory after restoring cache
+      - name: List cache directory after restoring
+        run: ls -la ~/.npm
 
       - name: Install dependencies
         run: npm ci
