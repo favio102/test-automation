@@ -35,8 +35,8 @@ jobs:
             ${{ runner.os }}-node-
 
       # List cache directory after restoring cache
-      - name: List cache directory after restoring
-        run: ls -la ~/.npm
+      # - name: List cache directory after restoring
+      #   run: ls -la ~/.npm
 
       - name: Install dependencies
         run: npm ci
