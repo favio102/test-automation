@@ -10,7 +10,7 @@ testData.searchTerms.forEach((searchTerm: string) => {
   test(`Verify Search Functionality - ${searchTerm}`, async ({ page }) => {
     const searchPage = new SearchPage(page);
     try {
-      await page.goto("https://unsplash.com");
+      await page.goto("/");
       console.log("Navigated to Unsplash homepage");
 
       await searchPage.searchFor(searchTerm);
