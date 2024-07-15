@@ -28,7 +28,7 @@ export default class LoginPage {
   }
 
   private async navigateToLoginPage(): Promise<void> {
-    await this.page.goto("/");
+    await this.page.goto("/", { waitUntil: "domcontentloaded" });
     console.log("Navigated to Unsplash homepage");
     await this.page.getByRole("link", { name: "Log in" }).click();
     console.log("Clicked on login link");
