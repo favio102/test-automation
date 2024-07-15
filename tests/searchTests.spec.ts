@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import SearchPage from "./utils/searchPage.js";
 import * as dotenv from "dotenv";
-import testData from './tests.json';
+import testData from "./tests.json";
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ testData.searchTerms.forEach((searchTerm: string) => {
   test(`Verify Search Functionality - ${searchTerm}`, async ({ page }) => {
     const searchPage = new SearchPage(page);
     try {
-      await page.goto("/");
+      await page.goto("/", { waitUntil: "domcontentloaded" });
       console.log("Navigated to Unsplash homepage");
 
       await searchPage.searchFor(searchTerm);

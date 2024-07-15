@@ -39,7 +39,7 @@ export default class SearchPage {
   }
 
   private async navigateToHomepage(): Promise<void> {
-    await this.page.goto("/");
+    await this.page.goto("/", { waitUntil: "domcontentloaded" });
     console.log("Navigated to Unsplash homepage");
   }
 
